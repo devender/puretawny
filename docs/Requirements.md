@@ -26,7 +26,7 @@
 	* Given a point find out if it exists.
 	* Distances from one point to another.
 	* Given a point determine if those co-ordinates are within a certain country.
-* Knowing this let us pick an underlying database that comes up GeoSpatail features built in.
+* Knowing this let us pick an underlying database that comes with builtin GeoSpatail features.
 	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
 	* For this project we decided to use [RethinkDB](http://rethinkdb.com/).
 		* 	
