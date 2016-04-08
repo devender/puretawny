@@ -35,5 +35,7 @@
 * Our next challenge is to find geo spatial data, our needs our:
 	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
 	* Be able to easily download the data so that we can import it.
+* MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
+	* We decided to boot stap our database with the free download from MaxMind and we can later on agument this with other data sources as needed.
 
 
