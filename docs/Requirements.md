@@ -34,6 +34,6 @@
 #### Data
 * Our next challenge is to find geo spatial data, our needs our:
 	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
-	* 
+	* Be able to easily download the data so that we can import it.
 
 
