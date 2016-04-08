@@ -37,7 +37,21 @@
 	* Be able to easily download the data so that we can import it.
 * MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
 	* We decided to boot stap our database with the free download from MaxMind and we can later on agument this with other data sources as needed.
+	* This is the download (link)[http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz] it is 33 MB
 
+```
+➜  Downloads head worldcitiespop.txt 
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+ad,aixas,Aix?s,06,,42.4833333,1.4666667
+ad,aixirivali,Aixirivali,06,,42.4666667,1.5
+ad,aixirivall,Aixirivall,06,,42.4666667,1.5
+ad,aixirvall,Aixirvall,06,,42.4666667,1.5
+ad,aixovall,Aixovall,06,,42.4666667,1.4833333
+ad,andorra,Andorra,07,,42.5,1.5166667
+ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
+ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
+ad,andorre,Andorre,07,,42.5,1.5166667
+```
 
 ## Implementation
 
