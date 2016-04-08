@@ -22,6 +22,7 @@
 
 ## Analysis
 
+#### Database
 * It is evident from the requirements that this project will be doing a lot of GeoSpatial look ups such as:
 	* Given a point find out if it exists.
 	* Distances from one point to another.
@@ -29,6 +30,10 @@
 * Knowing this let us pick an underlying database that comes with builtin GeoSpatail features.
 	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
 	* For this project we decided to use [RethinkDB](http://rethinkdb.com/).
-		* 	
+		
+#### Data
+* Our next challenge is to find geo spatial data, our needs our:
+	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
+	* 
 
 
