@@ -32,7 +32,7 @@
 	* For this project we decided to use [RethinkDB](http://rethinkdb.com/).
 		
 #### Data
-* Our next challenge is to find geo spatial data, our needs our:
+* Our next challenge is to find geo spatial data that matchs the needs of this project:
 	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
 	* Be able to easily download the data so that we can import it.
 * MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
