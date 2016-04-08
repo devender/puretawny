@@ -39,3 +39,9 @@
 	* We decided to boot stap our database with the free download from MaxMind and we can later on agument this with other data sources as needed.
 
 
+## Implementation
+
+* The only requirement give was to use Java, apart from that we decided to use the following tools:
+	* Maven.
+	* RethinkDB.
+	* Spring
