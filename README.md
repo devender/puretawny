@@ -29,7 +29,8 @@
 	* Given a point determine if those co-ordinates are within a certain country.
 * With the above requirement in mind it is best to pick an underlying database that comes with builtin GeoSpatail features.
 	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
-	* For this project we decided to use [RethinkDB](http://rethinkdb.com/).
+	* For this project I decided to use [RethinkDB](http://rethinkdb.com/).
+		* Reasons : Apart from supporting Gis queries, rethink is fast, has a native java driver, and its most important feature is callbacks. 	
 		
 #### Data
 * Next challenge is to find geo spatial data that matchs the needs of this project:
@@ -61,10 +62,13 @@ ad,andorre,Andorre,07,,42.5,1.5166667
 	* Maven.
 	* RethinkDB.
 	* Spring.
-* Please see main pom file for a complete list of dependencies.
+* Please see main [pom](https://github.com/devender/puretawny/blob/master/code/pom.xml) file for a complete list of dependencies.
 
 
 ## Data Loading
 
+* All the code for bootstraping the database is available in the submodule [code/dataloader](https://github.com/devender/puretawny/tree/master/code/dataLoader).
+* The main class of interest is [```DbBootStrapImpl.java```](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/java/com/gdr/puretawny/dataLoader/impl/DbBootStrapImpl.java), which contains code to read and populate the database.
+* 
 
 
