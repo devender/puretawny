@@ -58,7 +58,10 @@ public class DbServiceImpl implements DbService {
     public void insertPoints(final List<Point> points) {
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
             for (Point point : points) {
-                r.db(DB_NAME).table(TABLE_NAME).insert(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLatitude(), point.getLongitude())))
+                if (point.getLatitude() > 90 || point.getLatitude() < -90) {
+                    System.out.println("what");
+                }
+                r.db(DB_NAME).table(TABLE_NAME).insert(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLongitude(), point.getLatitude())))
                         .run(connection);
             }
             LOGGER.info("Done inserting all points..creating gis index ...");
@@ -70,7 +73,7 @@ public class DbServiceImpl implements DbService {
     @Override
     public void insertPoint(final Point point) {
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            r.db(DB_NAME).table(TABLE_NAME).insert(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLatitude(), point.getLongitude())))
+            r.db(DB_NAME).table(TABLE_NAME).insert(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLongitude(),point.getLatitude())))
                     .run(connection);
         }
     }
@@ -78,7 +81,7 @@ public class DbServiceImpl implements DbService {
     @Override
     public void deletePoint(final Point point) {
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            r.db(DB_NAME).table(TABLE_NAME).filter(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLatitude(), point.getLongitude()))).delete()
+            r.db(DB_NAME).table(TABLE_NAME).filter(r.hashMap("country", point.getCountry()).with("city", point.getCity()).with("location", r.point(point.getLongitude(),point.getLatitude()))).delete()
                     .run(connection);
         }
     }
@@ -88,7 +91,7 @@ public class DbServiceImpl implements DbService {
         Optional<Point> point = Optional.empty();
 
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<HashMap> cursor = r.db(DB_NAME).table(TABLE_NAME).filter(r.hashMap("location", r.point(latitude, longitude))).limit(1).run(connection);
+            Cursor<HashMap> cursor = r.db(DB_NAME).table(TABLE_NAME).filter(r.hashMap("location", r.point(longitude,latitude))).limit(1).run(connection);
 
             for (HashMap doc : cursor) {
                 try {

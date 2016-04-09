@@ -10,12 +10,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.gdr.puretawny.dataLoader.FileLoader;
 import com.gdr.puretawny.model.Point;
+import com.gdr.puretawny.model.Polygon;
 import com.google.common.base.Strings;
 import com.google.common.primitives.Doubles;
 
@@ -35,9 +40,40 @@ public class FileLoaderImpl implements FileLoader {
             list = lines.skip(1). // skip header
                     map(line -> parseLine(line)). // convert line to point
                     filter(Optional::isPresent). // remove empty
-                    map(Optional::get).
-                    collect(Collectors.toList()); // make list
+                    map(Optional::get).collect(Collectors.toList()); // make
+                                                                     // list
 
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Polygon> loadPolygons(final Path filePath) throws IOException, ParseException {
+        List<Polygon> list = new ArrayList<>();
+        String content = new String(Files.readAllBytes(filePath), StandardCharsets.ISO_8859_1);
+        JSONParser parser = new JSONParser();
+        JSONObject obj = (JSONObject) parser.parse(content);
+        JSONArray features = (JSONArray) obj.get("features");
+        for (int i = 0; i < features.size(); i++) {
+            JSONObject feature = (JSONObject) features.get(i);
+            JSONObject geometry = (JSONObject) feature.get("geometry");
+            JSONArray multiPolygonCoordinates = (JSONArray) geometry.get("coordinates");
+            for (int j = 0; j < multiPolygonCoordinates.size(); j++) {
+                JSONArray c1 = (JSONArray) multiPolygonCoordinates.get(i);
+                // multiPolygonCoordinates contains array of polygons
+                for (int k = 0; k < c1.size(); k++) {
+                    Polygon polygon = new Polygon();
+                    JSONArray c2 = (JSONArray) c1.get(k);
+                    for (int l = 0; l < c2.size(); l++) {
+                        JSONArray c3 = (JSONArray) c2.get(l);
+                        Double latitude = (Double) c3.get(1);
+                        Double longitude = (Double) c3.get(0);
+                        polygon.addPoint(new Point(latitude, longitude));
+                    }
+                    list.add(polygon);
+                }
+            }
         }
 
         return list;

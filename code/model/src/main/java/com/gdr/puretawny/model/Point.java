@@ -18,6 +18,11 @@ public class Point {
         this.longitude = longitude;
     }
 
+    public Point(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -102,7 +107,5 @@ public class Point {
             return false;
         return true;
     }
-    
-    
 
 }
