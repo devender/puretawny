@@ -119,13 +119,26 @@ public class DbServiceImpl implements DbService {
                     JSONArray o = (JSONArray) j.get("coordinates");
                     String country = (String) doc.get("country");
                     String city = (String) doc.get("city");
-                    Double latitudeN = (Double) o.get(1);
-                    Double logitudeN = (Double) o.get(0);
+
+                    Double latitudeN = 0.0;
+                    Double logitudeN = 0.0;
+
+                    if (o.get(1) instanceof Long) {
+                        latitudeN = ((Long) o.get(1)).doubleValue();
+                    } else {
+                        latitudeN = (Double) o.get(1);
+                    }
+                    if (o.get(0) instanceof Long) {
+                        logitudeN = ((Long) o.get(0)).doubleValue();
+                    } else {
+                        logitudeN = (Double) o.get(0);
+                    }
+
                     if (null != country && null != city && null != latitudeN && null != logitudeN) {
                         list.add(new Point(country, city, latitudeN, logitudeN));
                     }
                 } catch (Exception e) {
-                    LOGGER.error("unable to map doc to pojo", e);
+                    LOGGER.error("unable to map doc to pojo " + doc, e);
                 }
             }
         }

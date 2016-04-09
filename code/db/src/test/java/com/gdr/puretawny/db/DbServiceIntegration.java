@@ -1,5 +1,6 @@
 package com.gdr.puretawny.db;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.gdr.puretawny.config.AppConfig;
 import com.gdr.puretawny.db.config.DBConfig;
 import com.gdr.puretawny.model.Point;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  * Since this requires the RethinkDB to be running making this an integration
@@ -53,5 +55,12 @@ public class DbServiceIntegration {
         Assert.assertTrue(dbService.isPointInUs(abercrombie));
         Assert.assertFalse(dbService.isPointInUs(zuzumba));
         Assert.assertFalse(dbService.isPointInUs(zvishavane));
+    }
+
+    @Test
+    public void loadAll() {
+        List<Point> points = dbService.findAll();
+        Assert.assertNotNull(points);
+        Assert.assertThat(points, hasSize(10008));
     }
 }
