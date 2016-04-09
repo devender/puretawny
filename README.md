@@ -35,7 +35,7 @@
 * Next challenge is to find geo spatial data that:
 	* Contains atleast 10,000 valid latitudes and longitudes.
 	* Be able to easily download the data so that we can import it.
-* MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
+* MaxMind provides a good solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
 	* After downloading the data I limited it to 10,000 entries PLUS entries for the 7 cities mentioned in the requirements
 
 ##### Country Polygons
