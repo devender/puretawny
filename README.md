@@ -39,7 +39,7 @@
 	* Be able to easily download the data so that we can import it.
 * MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
 	* Decided to boot stap the database with the free download from MaxMind and we can later on agument this with other data sources as needed.
-	* This is the download (link)[http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz] it is 33 MB compressed.
+	* This is the download [link](http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz) it is 33 MB compressed.
 	* Doing a wc -l on the file tells us that there are *3173959 -1 (for header) records* in the file, this exceeds the requirements of having 10,000 entries.
 
 ##### Country Polygons
