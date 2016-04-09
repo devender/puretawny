@@ -1,5 +1,6 @@
 package com.gdr.puretawny.db.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -107,6 +108,31 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
+    public List<Point> findAll() {
+        List<Point> list = new ArrayList<>();
+        try (Connection connection = r.connection().hostname(host).port(port).connect()) {
+            Cursor<HashMap> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME).run(connection);
+
+            for (HashMap doc : cursor) {
+                try {
+                    JSONObject j = (JSONObject) doc.get("location");
+                    JSONArray o = (JSONArray) j.get("coordinates");
+                    String country = (String) doc.get("country");
+                    String city = (String) doc.get("city");
+                    Double latitudeN = (Double) o.get(1);
+                    Double logitudeN = (Double) o.get(0);
+                    if (null != country && null != city && null != latitudeN && null != logitudeN) {
+                        list.add(new Point(country, city, latitudeN, logitudeN));
+                    }
+                } catch (Exception e) {
+                    LOGGER.error("unable to map doc to pojo", e);
+                }
+            }
+        }
+        return list;
+    }
+
+    @Override
     public void deletePoint(final Point point) {
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
             r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
@@ -151,7 +177,7 @@ public class DbServiceImpl implements DbService {
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
             Cursor<HashMap> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
                     .intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
-            System.out.println(o.hasNext());
+            intersects = o.hasNext();
         }
         return intersects;
     }

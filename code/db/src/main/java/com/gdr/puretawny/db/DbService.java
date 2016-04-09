@@ -21,4 +21,6 @@ public interface DbService {
     void insertPolygonsForUs(List<Polygon> usPolygons);
 
     boolean isPointInUs(Point point);
+
+    List<Point> findAll();
 }

@@ -28,9 +28,11 @@ public class DbServiceIntegration {
     @Autowired
     private DbService          dbService;
 
-    private static final Point zuzumba    = new Point("zw", "zuzumba", -20.0333333, 27.9333333);
-    private static final Point zvishavane = new Point("zw", "zvishavane", -20.3333333, 30.0333333);
-    private static final Point abercrombie = new Point("us","abercrombie",32.8486111,-87.1650000);
+    private static final Point zuzumba     = new Point("zw", "zuzumba", -20.0333333, 27.9333333);
+    private static final Point zvishavane  = new Point("zw", "zvishavane", -20.3333333, 30.0333333);
+    private static final Point abercrombie = new Point("us", "abercrombie", 32.8486111,
+            -87.1650000);
+    private static final Point la          = new Point("us", "la", 34.052235, -118.243683);
 
     @Test
     public void testDeleteAndInsert() {
@@ -42,13 +44,14 @@ public class DbServiceIntegration {
                 zuzumba.getLongitude());
 
         Assert.assertTrue(actualZuzumba.isPresent());
-        System.out.println(actualZuzumba.get());
-        System.out.println(zuzumba);
         Assert.assertTrue(actualZuzumba.get().equals(zuzumba));
     }
 
     @Test
     public void isPointInUs() {
-        dbService.isPointInUs(abercrombie);
+        Assert.assertTrue(dbService.isPointInUs(la));
+        Assert.assertTrue(dbService.isPointInUs(abercrombie));
+        Assert.assertFalse(dbService.isPointInUs(zuzumba));
+        Assert.assertFalse(dbService.isPointInUs(zvishavane));
     }
 }

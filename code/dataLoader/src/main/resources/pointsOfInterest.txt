@@ -1,0 +1,8 @@
+Country,City,AccentCity,Region,Population,Latitude,Longitude
+jp,tokyo,Tokyo,40,31480498,35.685,139.751389
+au,sydney,Sydney,02,4394585,-33.861481,151.205475
+sa,riyadh,Riyadh,10,3469290,24.653664,46.71522
+ch,zurich,Zurich,25,346185,47.366667,8.55
+is,reykjavik,Reykjavík,10,113907,64.15,-21.95
+pe,lima,Lima,15,7646786,-12.046374,-77.042793
+mx,mexico city,,,,19.432608,-99.133209
