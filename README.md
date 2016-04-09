@@ -1,7 +1,7 @@
 ## Requirements
 
 #### Database
-1. Create a DB (whatever flavor) containing 10,000 random entries for valid latitude, longitude coordinates. 
+1. Create a DB containing 10,000 random entries for valid latitude, longitude coordinates. 
 
 #### Web Services
 
@@ -34,35 +34,21 @@
 		
 #### Data
 
-##### All Cities
-* Next challenge is to find geo spatial data that matchs the needs of this project:
-	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
+* Next challenge is to find geo spatial data that:
+	* Contains atleast 10,000 valid latitudes and longitudes.
 	* Be able to easily download the data so that we can import it.
 * MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
 	* Decided to boot stap the database with the free download from MaxMind and we can later on agument this with other data sources as needed.
-	* This is the download (link)[http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz] it is 33 MB compressed.
+	* This is the download [link](http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz) it is 33 MB compressed.
 	* Doing a wc -l on the file tells us that there are *3173959 -1 (for header) records* in the file, this exceeds the requirements of having 10,000 entries.
-
-Sample from the downloaded file :
-```
-➜  Downloads head worldcitiespop.txt 
-Country,City,AccentCity,Region,Population,Latitude,Longitude
-ad,aixas,Aix?s,06,,42.4833333,1.4666667
-ad,aixirivali,Aixirivali,06,,42.4666667,1.5
-ad,aixirivall,Aixirivall,06,,42.4666667,1.5
-ad,aixirvall,Aixirvall,06,,42.4666667,1.5
-ad,aixovall,Aixovall,06,,42.4666667,1.4833333
-ad,andorra,Andorra,07,,42.5,1.5166667
-ad,andorra la vella,Andorra la Vella,07,20430,42.5,1.5166667
-ad,andorra-vieille,Andorra-Vieille,07,,42.5,1.5166667
-ad,andorre,Andorre,07,,42.5,1.5166667
-```
 
 ##### Country Polygons
 * Given a point we need to determine if it is within US or not.
 * In order to do this we need to be able to define a polygon whose vertices connect all the boder points of a country.
 * Then we can check if the give point is contained with in the polygon.
 * County Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
+* I extracted polygons just of the US and it is available [here](https://github.com/devender/puretawny/blob/master/data/us.geojson).
+* The above file defines multiple polygons for "Minor Outlying Islands","United States of America","Virgin Islands"
 
 ## Implementation
 
