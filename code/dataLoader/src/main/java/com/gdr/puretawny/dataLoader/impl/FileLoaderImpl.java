@@ -24,9 +24,9 @@ public class FileLoaderImpl implements FileLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileLoaderImpl.class);
 
     @Override
-    public List<Optional<Point>> loadFromFile(final Path filePath) throws IOException {
+    public List<Point> loadFromFile(final Path filePath) throws IOException {
 
-        List<Optional<Point>> list = new ArrayList<>(0);
+        List<Point> list = new ArrayList<>(0);
 
         // NOTE this is a stream that is loaded lazily
         // try with resources will ensure the stream is closed
@@ -34,7 +34,8 @@ public class FileLoaderImpl implements FileLoader {
 
             list = lines.skip(1). // skip header
                     map(line -> parseLine(line)). // convert line to point
-                    filter(optional -> optional.isPresent()). // remove empty
+                    filter(Optional::isPresent). // remove empty
+                    map(Optional::get).
                     collect(Collectors.toList()); // make list
 
         }

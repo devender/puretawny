@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.gdr.puretawny.dataLoader.DBBootStrap;
 import com.gdr.puretawny.dataLoader.FileLoader;
+import com.gdr.puretawny.db.DbService;
 import com.gdr.puretawny.model.Point;
 
 @Service
@@ -21,20 +22,27 @@ public class DbBootStrapImpl implements DBBootStrap {
     private static final Logger LOGGER = LoggerFactory.getLogger(DBBootStrap.class);
 
     private final FileLoader    fileLoader;
+    private final DbService     dbService;
     private final Path          path;
 
     @Autowired
-    public DbBootStrapImpl(FileLoader fileLoader, @Value("${data.filePath}") String filePath) {
+    public DbBootStrapImpl(FileLoader fileLoader, @Value("${data.filePath}") String filePath, DbService dbService) {
         this.fileLoader = fileLoader;
         this.path = Paths.get(filePath);
+        this.dbService = dbService;
     }
 
     @Override
     public void bootStrapDb() {
-        LOGGER.info("Reading data from file {}", path.toString());
         try {
-            List<Optional<Point>> list = fileLoader.loadFromFile(path);
-            LOGGER.info("Read {} points ", list.size());
+            dbService.initDB();
+
+            LOGGER.info("Reading data from file {}", path.toString());
+            List<Point> points = fileLoader.loadFromFile(path);
+            LOGGER.info("Read {} points ", points.size());
+            
+            dbService.insertPoints(points);
+
         } catch (IOException e) {
             LOGGER.error("Unable to read file", e);
         }
