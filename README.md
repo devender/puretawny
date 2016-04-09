@@ -19,7 +19,6 @@
 	* Lima, Peru
 1. For each of the above, tell us how far away the entry's coordinates are from each city.
 
-
 ## Analysis
 
 #### Database
@@ -30,23 +29,20 @@
 * With the above requirement in mind it is best to pick an underlying database that comes with builtin GeoSpatail features.
 	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
 	* For this project I decided to use [RethinkDB](http://rethinkdb.com/).
-		* Reasons : Apart from supporting Gis queries, rethink is fast, has a native java driver, and its most important feature is callbacks. 	
 		
 #### Data
 
 * Next challenge is to find geo spatial data that:
 	* Contains atleast 10,000 valid latitudes and longitudes.
 	* Be able to easily download the data so that we can import it.
-* MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
-	* Decided to boot stap the database with the free download from MaxMind and we can later on agument this with other data sources as needed.
-	* This is the download [link](http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz) it is 33 MB compressed.
-	* Doing a wc -l on the file tells us that there are *3173959 -1 (for header) records* in the file, this exceeds the requirements of having 10,000 entries.
+* MaxMind provides a good solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
+	* After downloading the data I limited it to 10,000 entries PLUS entries for the 7 cities mentioned in the requirements
 
 ##### Country Polygons
 * Given a point we need to determine if it is within US or not.
 * In order to do this we need to be able to define a polygon whose vertices connect all the boder points of a country.
 * Then we can check if the give point is contained with in the polygon.
-* County Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
+* Country Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
 * I extracted polygons just of the US and it is available [here](https://github.com/devender/puretawny/blob/master/data/us.geojson).
 * The above file defines multiple polygons for "Minor Outlying Islands","United States of America","Virgin Islands"
 
