@@ -57,10 +57,14 @@ ad,andorre,Andorre,07,,42.5,1.5166667
 
 ## Implementation
 
-* The only requirement given was to use Java, apart from that the following are some of the ones used: 
+* The only requirement given was to use Java, apart from that the following are some of libraries used: 
 	* Maven.
 	* RethinkDB.
 	* Spring.
 * Please see main pom file for a complete list of dependencies.
 
-	
+
+## Data Loading
+
+
+

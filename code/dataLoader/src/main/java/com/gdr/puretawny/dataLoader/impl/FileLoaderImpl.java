@@ -12,29 +12,27 @@ import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import com.gdr.puretawny.dataLoader.FileLoader;
 import com.gdr.puretawny.model.Point;
 import com.google.common.base.Strings;
 import com.google.common.primitives.Doubles;
 
+@Service
 public class FileLoaderImpl implements FileLoader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileLoaderImpl.class);
-
-    public FileLoaderImpl() {
-        // TODO Auto-generated constructor stub
-    }
 
     @Override
     public List<Optional<Point>> loadFromFile(final Path filePath) throws IOException {
 
         List<Optional<Point>> list = new ArrayList<>(0);
-        
+
         // NOTE this is a stream that is loaded lazily
         // try with resources will ensure the stream is closed
         try (Stream<String> lines = Files.lines(filePath, StandardCharsets.ISO_8859_1)) {
 
-            list =lines.skip(1). // skip header
+            list = lines.skip(1). // skip header
                     map(line -> parseLine(line)). // convert line to point
                     filter(optional -> optional.isPresent()). // remove empty
                     collect(Collectors.toList()); // make list

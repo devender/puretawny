@@ -9,4 +9,5 @@ import com.gdr.puretawny.model.Point;
 
 public interface FileLoader {
     List<Optional<Point>> loadFromFile(Path filePath) throws IOException;
+
 }
