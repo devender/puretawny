@@ -27,19 +27,20 @@
 	* Given a point find out if it exists.
 	* Distances from one point to another.
 	* Given a point determine if those co-ordinates are within a certain country.
-* With the above requirement in mind we will pick an underlying database that comes with builtin GeoSpatail features.
+* With the above requirement in mind it is best to pick an underlying database that comes with builtin GeoSpatail features.
 	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
 	* For this project we decided to use [RethinkDB](http://rethinkdb.com/).
 		
 #### Data
-* Our next challenge is to find geo spatial data that matchs the needs of this project:
+* Next challenge is to find geo spatial data that matchs the needs of this project:
 	* It should contain latitudes and longitudes for all cities/villages/towns...etc and preferably which country the point belongs too.
 	* Be able to easily download the data so that we can import it.
 * MaxMind provides a great solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
-	* We decided to boot stap our database with the free download from MaxMind and we can later on agument this with other data sources as needed.
+	* Decided to boot stap the database with the free download from MaxMind and we can later on agument this with other data sources as needed.
 	* This is the download (link)[http://download.maxmind.com/download/worldcities/worldcitiespop.txt.gz] it is 33 MB compressed.
-	* Doing a wc -l on the file tells us that there are 3173959 -1 (for header) records in the file, this exceeds the requirements of having 10,000 entries.
+	* Doing a wc -l on the file tells us that there are *3173959 -1 (for header) records* in the file, this exceeds the requirements of having 10,000 entries.
 
+Sample from the downloaded file :
 ```
 ➜  Downloads head worldcitiespop.txt 
 Country,City,AccentCity,Region,Population,Latitude,Longitude
@@ -56,7 +57,10 @@ ad,andorre,Andorre,07,,42.5,1.5166667
 
 ## Implementation
 
-* The only requirement give was to use Java, apart from that we decided to use the following tools:
+* The only requirement given was to use Java, apart from that the following are some of the ones used: 
 	* Maven.
 	* RethinkDB.
-	* Spring
+	* Spring.
+* Please see main pom file for a complete list of dependencies.
+
+	
