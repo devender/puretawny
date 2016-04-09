@@ -48,7 +48,7 @@
 * Then we can check if the give point is contained with in the polygon.
 * County Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
 * I extracted polygons just of the US and it is available [here](https://github.com/devender/puretawny/blob/master/data/us.geojson).
-* The above file defines multiple polygons for "Minor Outlying Islands","United States of America",
+* The above file defines multiple polygons for "Minor Outlying Islands","United States of America","Virgin Islands"
 
 ## Implementation
 
