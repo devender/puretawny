@@ -42,7 +42,7 @@
 * Given a point we need to determine if it is within US or not.
 * In order to do this we need to be able to define a polygon whose vertices connect all the boder points of a country.
 * Then we can check if the give point is contained with in the polygon.
-* County Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
+* Country Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
 * I extracted polygons just of the US and it is available [here](https://github.com/devender/puretawny/blob/master/data/us.geojson).
 * The above file defines multiple polygons for "Minor Outlying Islands","United States of America","Virgin Islands"
 
