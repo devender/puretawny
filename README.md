@@ -34,7 +34,7 @@
 
 * Next challenge is to find geo spatial data that contains atleast 10,000 valid latitudes and longitudes.
 * MaxMind provides a good solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
-* After downloading the data I limited it to 10,000 entries PLUS entries for the 7 cities mentioned in the requirements.
+* After downloading the data I limited it to 10,000.
 * This seed data is available [here](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt).
 * This will be bundeled with the war so no need to download this seperately.
 
