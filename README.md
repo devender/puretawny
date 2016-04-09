@@ -27,16 +27,16 @@
 	* Distances from one point to another.
 	* Given a point determine if those co-ordinates are within a certain country.
 * With the above requirement in mind it is best to pick an underlying database that comes with builtin GeoSpatail features.
-	* There are many databases that support GeoSpatial look ups, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
+	* There are many databases that support GeoSpatial, a complete list can be seen [here](https://en.wikipedia.org/wiki/Spatial_database).
 	* For this project I decided to use [RethinkDB](http://rethinkdb.com/).
 		
 #### Data
 
-* Next challenge is to find geo spatial data that:
-	* Contains atleast 10,000 valid latitudes and longitudes.
-	* Be able to easily download the data so that we can import it.
+* Next challenge is to find geo spatial data that contains atleast 10,000 valid latitudes and longitudes.
 * MaxMind provides a good solution they have a free [download](https://www.maxmind.com/en/free-world-cities-database) containing all cities in the world with their latitude and longitude along with country information.
-	* After downloading the data I limited it to 10,000 entries PLUS entries for the 7 cities mentioned in the requirements
+* After downloading the data I limited it to 10,000 entries PLUS entries for the 7 cities mentioned in the requirements.
+* This seed data is available [here](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt).
+* This will be bundeled with the war so no need to download this seperately.
 
 ##### Country Polygons
 * Given a point we need to determine if it is within US or not.
@@ -45,6 +45,7 @@
 * Country Polygons datasets are available in many places, I decided to use [this](https://github.com/datasets/geo-countries).
 * I extracted polygons just of the US and it is available [here](https://github.com/devender/puretawny/blob/master/data/us.geojson).
 * The above file defines multiple polygons for "Minor Outlying Islands","United States of America","Virgin Islands"
+* This file is bundeled with the war so no need to download this seperately.
 
 ## Implementation
 
