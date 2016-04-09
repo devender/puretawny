@@ -2,6 +2,7 @@ package com.gdr.puretawny.db;
 
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class DbServiceIntegration {
         dbService.insertPoint(zuzumba);
         dbService.insertPoint(zvishavane);
         Optional<Point> actualZuzumba = dbService.findAt(zuzumba.getLatitude(), zuzumba.getLongitude());
-        System.out.println(actualZuzumba);
+
+        Assert.assertTrue(actualZuzumba.isPresent());
+        Assert.assertTrue(actualZuzumba.get().equals(zuzumba));
     }
 }
