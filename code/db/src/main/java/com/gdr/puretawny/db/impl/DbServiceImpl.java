@@ -72,10 +72,11 @@ public class DbServiceImpl implements DbService {
                 r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME)
                         .insert(r.hashMap("poly", new com.rethinkdb.gen.ast.Polygon(args)))
                         .run(connection);
-
             }
+            LOGGER.info("Done inserting all polygons");
+            r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).indexCreate("area").optArg("geo", true)
+                    .run(connection, OptArgs.of("durability", "soft"));
         }
-
     }
 
     @Override
@@ -146,12 +147,13 @@ public class DbServiceImpl implements DbService {
 
     @Override
     public boolean isPointInUs(final Point point) {
+        boolean intersects = false;
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Object o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
+            Cursor<HashMap> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
                     .intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
-            System.out.println(o);
+            System.out.println(o.hasNext());
         }
-        return false;
+        return intersects;
     }
 
 }

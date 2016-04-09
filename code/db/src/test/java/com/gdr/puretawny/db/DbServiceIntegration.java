@@ -30,6 +30,7 @@ public class DbServiceIntegration {
 
     private static final Point zuzumba    = new Point("zw", "zuzumba", -20.0333333, 27.9333333);
     private static final Point zvishavane = new Point("zw", "zvishavane", -20.3333333, 30.0333333);
+    private static final Point abercrombie = new Point("us","abercrombie",32.8486111,-87.1650000);
 
     @Test
     public void testDeleteAndInsert() {
@@ -48,6 +49,6 @@ public class DbServiceIntegration {
 
     @Test
     public void isPointInUs() {
-        dbService.isPointInUs(zuzumba);
+        dbService.isPointInUs(abercrombie);
     }
 }

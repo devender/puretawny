@@ -53,7 +53,7 @@ public class DbBootStrapImpl implements DBBootStrap {
             LOGGER.info("Reading US polygon data");
             Path usPolygonsPath = Paths.get(ClassLoader.getSystemResource(usPolygonsFile).toURI());
             List<Polygon> usPolygons = fileLoader.loadPolygons(usPolygonsPath);
-            LOGGER.info("Read {} polygons for US", usPolygons.size());
+            LOGGER.info("Read {} polygons for US...inserting", usPolygons.size());
             dbService.insertPolygonsForUs(usPolygons);
 
         } catch (IOException | ParseException | URISyntaxException e) {

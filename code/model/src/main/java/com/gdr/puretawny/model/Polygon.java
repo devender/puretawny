@@ -23,7 +23,7 @@ public class Polygon {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
         for (Point point : points) {
-            sb.append('{').append(point.getLatitude()).append(',').append(point.getLongitude())
+            sb.append('{').append(point.getLongitude()).append(',').append(point.getLatitude())
                     .append('}').append(',');
         }
         sb.append(']');

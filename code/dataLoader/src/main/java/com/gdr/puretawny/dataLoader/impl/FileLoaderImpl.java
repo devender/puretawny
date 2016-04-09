@@ -59,15 +59,15 @@ public class FileLoaderImpl implements FileLoader {
             JSONObject geometry = (JSONObject) feature.get("geometry");
             JSONArray multiPolygonCoordinates = (JSONArray) geometry.get("coordinates");
             for (int j = 0; j < multiPolygonCoordinates.size(); j++) {
-                JSONArray c1 = (JSONArray) multiPolygonCoordinates.get(i);
+                JSONArray c1 = (JSONArray) multiPolygonCoordinates.get(j);
                 // multiPolygonCoordinates contains array of polygons
                 for (int k = 0; k < c1.size(); k++) {
-                    Polygon polygon = new Polygon();
                     JSONArray c2 = (JSONArray) c1.get(k);
+                    Polygon polygon = new Polygon();
                     for (int l = 0; l < c2.size(); l++) {
                         JSONArray c3 = (JSONArray) c2.get(l);
-                        Double latitude = (Double) c3.get(1);
                         Double longitude = (Double) c3.get(0);
+                        Double latitude = (Double) c3.get(1);
                         polygon.addPoint(new Point(latitude, longitude));
                     }
                     list.add(polygon);
@@ -78,13 +78,10 @@ public class FileLoaderImpl implements FileLoader {
         return list;
     }
 
-    private static final int Country_Index    = 0;
-    private static final int City_Index       = 1;
-    private static final int AccentCity_Index = 2;
-    private static final int Region_Index     = 3;
-    private static final int Population_Index = 4;
-    private static final int Latitude_Index   = 5;
-    private static final int Longitude_Index  = 6;
+    private static final int Country_Index   = 0;
+    private static final int City_Index      = 1;
+    private static final int Latitude_Index  = 5;
+    private static final int Longitude_Index = 6;
 
     static Optional<Point> parseLine(String line) {
         Optional<Point> point = Optional.empty();

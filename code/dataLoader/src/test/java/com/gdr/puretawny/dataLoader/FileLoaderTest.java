@@ -32,6 +32,10 @@ public class FileLoaderTest {
         FileLoader fileLoader = new FileLoaderImpl();
         Path path = Paths.get(ClassLoader.getSystemResource("us.geojson").toURI());
         List<Polygon> list = fileLoader.loadPolygons(path);
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(list.get(i));
+        }
         Assert.assertThat(list, hasSize(362));
     }
 }
