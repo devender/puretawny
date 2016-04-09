@@ -37,9 +37,17 @@ public class DbServiceIntegration {
         dbService.deletePoint(zvishavane);
         dbService.insertPoint(zuzumba);
         dbService.insertPoint(zvishavane);
-        Optional<Point> actualZuzumba = dbService.findAt(zuzumba.getLatitude(), zuzumba.getLongitude());
+        Optional<Point> actualZuzumba = dbService.findAt(zuzumba.getLatitude(),
+                zuzumba.getLongitude());
 
         Assert.assertTrue(actualZuzumba.isPresent());
+        System.out.println(actualZuzumba.get());
+        System.out.println(zuzumba);
         Assert.assertTrue(actualZuzumba.get().equals(zuzumba));
+    }
+
+    @Test
+    public void isPointInUs() {
+        dbService.isPointInUs(zuzumba);
     }
 }

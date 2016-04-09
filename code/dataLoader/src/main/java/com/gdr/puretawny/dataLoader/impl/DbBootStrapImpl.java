@@ -1,6 +1,7 @@
 package com.gdr.puretawny.dataLoader.impl;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -24,15 +25,17 @@ public class DbBootStrapImpl implements DBBootStrap {
 
     private final FileLoader    fileLoader;
     private final DbService     dbService;
-    private final Path          path;
-    private final Path          usPolygonsPath;
+    private final String        sampleCitiesFile;
+    private final String        usPolygonsFile;
 
     @Autowired
-    public DbBootStrapImpl(FileLoader fileLoader, @Value("${data.filePath}") String filePath, DbService dbService, @Value("${data.us_polygons.filePath}") String usPolygonsPath) {
+    public DbBootStrapImpl(FileLoader fileLoader,
+            @Value("${data.cities.filePath}") String sampleCitiesFile, DbService dbService,
+            @Value("${data.us_polygons.filePath}") String usPolygonsFile) {
         this.fileLoader = fileLoader;
-        this.path = Paths.get(filePath);
+        this.sampleCitiesFile = sampleCitiesFile;
         this.dbService = dbService;
-        this.usPolygonsPath = Paths.get(usPolygonsPath);
+        this.usPolygonsFile = usPolygonsFile;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class DbBootStrapImpl implements DBBootStrap {
         try {
             dbService.initDB();
 
+            Path path = Paths.get(ClassLoader.getSystemResource(sampleCitiesFile).toURI());
             LOGGER.info("Reading data from file {}", path.toString());
             List<Point> points = fileLoader.loadFromFile(path);
             LOGGER.info("Read {} points ", points.size());
@@ -47,10 +51,12 @@ public class DbBootStrapImpl implements DBBootStrap {
             dbService.insertPoints(points);
 
             LOGGER.info("Reading US polygon data");
+            Path usPolygonsPath = Paths.get(ClassLoader.getSystemResource(usPolygonsFile).toURI());
             List<Polygon> usPolygons = fileLoader.loadPolygons(usPolygonsPath);
             LOGGER.info("Read {} polygons for US", usPolygons.size());
+            dbService.insertPolygonsForUs(usPolygons);
 
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | URISyntaxException e) {
             LOGGER.error("Unable to read file", e);
         }
 

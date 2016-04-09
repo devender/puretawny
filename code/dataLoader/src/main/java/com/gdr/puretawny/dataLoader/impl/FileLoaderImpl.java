@@ -40,8 +40,7 @@ public class FileLoaderImpl implements FileLoader {
             list = lines.skip(1). // skip header
                     map(line -> parseLine(line)). // convert line to point
                     filter(Optional::isPresent). // remove empty
-                    map(Optional::get).collect(Collectors.toList()); // make
-                                                                     // list
+                    map(Optional::get).collect(Collectors.toList());
 
         }
 
@@ -103,12 +102,14 @@ public class FileLoaderImpl implements FileLoader {
         }
 
         Double latitude = null;
-        if (!Strings.isNullOrEmpty(parts[Latitude_Index]) && Doubles.tryParse(parts[Latitude_Index]) != null) {
+        if (!Strings.isNullOrEmpty(parts[Latitude_Index])
+                && Doubles.tryParse(parts[Latitude_Index]) != null) {
             latitude = Doubles.tryParse(parts[Latitude_Index]);
         }
 
         Double longitude = null;
-        if (!Strings.isNullOrEmpty(parts[Longitude_Index]) && Doubles.tryParse(parts[Longitude_Index]) != null) {
+        if (!Strings.isNullOrEmpty(parts[Longitude_Index])
+                && Doubles.tryParse(parts[Longitude_Index]) != null) {
             longitude = Doubles.tryParse(parts[Longitude_Index]);
         }
 

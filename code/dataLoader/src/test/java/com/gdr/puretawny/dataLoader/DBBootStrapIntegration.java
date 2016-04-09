@@ -12,7 +12,8 @@ import com.gdr.puretawny.dataLoader.config.DataLoaderConfig;
 import com.gdr.puretawny.db.config.DBConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy({ @ContextConfiguration(classes = { AppConfig.class, DataLoaderConfig.class, DBConfig.class }) })
+@ContextHierarchy({ @ContextConfiguration(classes = { AppConfig.class, DataLoaderConfig.class,
+        DBConfig.class }) })
 public class DBBootStrapIntegration {
 
     @Autowired

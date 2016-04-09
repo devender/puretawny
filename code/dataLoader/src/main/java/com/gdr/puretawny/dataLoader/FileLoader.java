@@ -11,7 +11,6 @@ import com.gdr.puretawny.model.Polygon;
 
 public interface FileLoader {
     List<Point> loadFromFile(Path filePath) throws IOException;
-    
-    List<Polygon> loadPolygons(Path filePath) throws IOException,ParseException;
 
+    List<Polygon> loadPolygons(Path filePath) throws IOException, ParseException;
 }

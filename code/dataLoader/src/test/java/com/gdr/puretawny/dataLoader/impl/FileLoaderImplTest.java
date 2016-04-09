@@ -15,7 +15,9 @@ public class FileLoaderImplTest {
         Assert.assertTrue(point.isPresent());
         Assert.assertThat("City Name Should Match", point.get().getCity(), containsString("aixas"));
         Assert.assertThat("Country Should Match", point.get().getCountry(), containsString("ad"));
-        Assert.assertThat("Latitude should match", point.get().getLatitude(), closeTo(42.4833333, 0.0));
-        Assert.assertThat("Longitude should match", point.get().getLongitude(), closeTo(1.4666667, 0.0));
+        Assert.assertThat("Latitude should match", point.get().getLatitude(),
+                closeTo(42.4833333, 0.0));
+        Assert.assertThat("Longitude should match", point.get().getLongitude(),
+                closeTo(1.4666667, 0.0));
     }
 }

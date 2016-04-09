@@ -65,7 +65,8 @@ public class Point {
 
     @Override
     public String toString() {
-        return "Point [country=" + country + ", city=" + city + ", latitude=" + latitude + ", longitude=" + longitude + ", id=" + id + "]";
+        return "Point [country=" + country + ", city=" + city + ", latitude=" + latitude
+                + ", longitude=" + longitude + ", id=" + id + "]";
     }
 
     @Override

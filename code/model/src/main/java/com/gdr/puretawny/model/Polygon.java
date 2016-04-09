@@ -22,8 +22,9 @@ public class Polygon {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
-        for(Point point : points){
-            sb.append('{').append(point.getLatitude()).append(',').append(point.getLongitude()).append('}').append(',');
+        for (Point point : points) {
+            sb.append('{').append(point.getLatitude()).append(',').append(point.getLongitude())
+                    .append('}').append(',');
         }
         sb.append(']');
         return sb.toString();
