@@ -47,6 +47,8 @@ public class DbServiceIntegration {
 
         Assert.assertTrue(actualZuzumba.isPresent());
         Assert.assertTrue(actualZuzumba.get().equals(zuzumba));
+        dbService.deletePoint(zuzumba);
+        dbService.deletePoint(zvishavane);
     }
 
     @Test
@@ -61,6 +63,6 @@ public class DbServiceIntegration {
     public void loadAll() {
         List<Point> points = dbService.findAll();
         Assert.assertNotNull(points);
-        Assert.assertThat(points, hasSize(10008));
+        Assert.assertThat(points, hasSize(10000));
     }
 }

@@ -27,22 +27,27 @@ public class DbBootStrapImpl implements DBBootStrap {
     private final DbService     dbService;
     private final String        sampleCitiesFile;
     private final String        usPolygonsFile;
+    private final String        pointsOfInterestFile;
 
     @Autowired
     public DbBootStrapImpl(FileLoader fileLoader,
             @Value("${data.cities.filePath}") String sampleCitiesFile, DbService dbService,
-            @Value("${data.us_polygons.filePath}") String usPolygonsFile) {
+            @Value("${data.us_polygons.filePath}") String usPolygonsFile,
+            @Value("${data.pointsOfInterest.filePath}") String pointsOfInterestFile) {
         this.fileLoader = fileLoader;
         this.sampleCitiesFile = sampleCitiesFile;
         this.dbService = dbService;
         this.usPolygonsFile = usPolygonsFile;
+        this.pointsOfInterestFile = pointsOfInterestFile;
     }
 
     @Override
     public void bootStrapDb() {
         try {
+            // drops database if it exists and recreates it.
             dbService.initDB();
 
+            // load 10,000 points
             Path path = Paths.get(ClassLoader.getSystemResource(sampleCitiesFile).toURI());
             LOGGER.info("Reading data from file {}", path.toString());
             List<Point> points = fileLoader.loadFromFile(path);
@@ -55,6 +60,13 @@ public class DbBootStrapImpl implements DBBootStrap {
             List<Polygon> usPolygons = fileLoader.loadPolygons(usPolygonsPath);
             LOGGER.info("Read {} polygons for US...inserting", usPolygons.size());
             dbService.insertPolygonsForUs(usPolygons);
+
+            // finally create a seperate table for the 7 points of interest
+            Path path2 = Paths.get(ClassLoader.getSystemResource(pointsOfInterestFile).toURI());
+            LOGGER.info("Reading data from file {}", path.toString());
+            List<Point> points2 = fileLoader.loadFromFile(path2);
+            LOGGER.info("Read {} points ", points.size());
+            dbService.insertPointsOfInterest(points2);
 
         } catch (IOException | ParseException | URISyntaxException e) {
             LOGGER.error("Unable to read file", e);

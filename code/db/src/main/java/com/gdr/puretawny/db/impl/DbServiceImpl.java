@@ -31,6 +31,7 @@ public class DbServiceImpl implements DbService {
     private static final String   DB_NAME                  = "puretawny";
     private static final String   SAMPLE_POINTS_TABLE_NAME = "geo";
     private static final String   US_POLYGONS_TABLE_NAME   = "us";
+    private static final String   POI_TABLE_NAME           = "poi";
 
     private final String          host;
     private final int             port;
@@ -58,6 +59,7 @@ public class DbServiceImpl implements DbService {
             LOGGER.info("Create Tables");
             r.db(DB_NAME).tableCreate(SAMPLE_POINTS_TABLE_NAME).run(connection);
             r.db(DB_NAME).tableCreate(US_POLYGONS_TABLE_NAME).run(connection);
+            r.db(DB_NAME).tableCreate(POI_TABLE_NAME).run(connection);
         }
     }
 
@@ -77,6 +79,21 @@ public class DbServiceImpl implements DbService {
             LOGGER.info("Done inserting all polygons");
             r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).indexCreate("area").optArg("geo", true)
                     .run(connection, OptArgs.of("durability", "soft"));
+        }
+    }
+
+    @Override
+    public void insertPointsOfInterest(List<Point> points) {
+        try (Connection connection = r.connection().hostname(host).port(port).connect()) {
+            points.parallelStream().forEach(point -> {
+                r.db(DB_NAME).table(POI_TABLE_NAME)
+                        .insert(r.hashMap("country", point.getCountry())
+                                .with("city", point.getCity()).with("location",
+                                        r.point(point.getLongitude(), point.getLatitude())))
+                        .run(connection, OptArgs.of("durability", "soft"));
+            });
+
+            LOGGER.info("..done.");
         }
     }
 

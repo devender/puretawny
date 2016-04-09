@@ -23,4 +23,6 @@ public interface DbService {
     boolean isPointInUs(Point point);
 
     List<Point> findAll();
+    
+    void insertPointsOfInterest(List<Point> points);
 }
