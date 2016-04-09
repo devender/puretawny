@@ -8,7 +8,7 @@
 1. getAllDataSets() - GET method, returns all data in the DB.
 1. getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
 1. addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
-1. Given the entry's coordinates, determine if those coordinates are within the United States. (Need to use Country Polygons).
+1. Given the entry's coordinates, determine if those coordinates are within the United States. (*Need to use Country Polygons*).
 1. If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:
 	* Tokyo, Japan
 	* Sydney, Australia
