@@ -60,6 +60,7 @@
 
 * All the code for bootstraping the database is available in the submodule [code/dataloader](https://github.com/devender/puretawny/tree/master/code/dataLoader).
 * The main class of interest is [```DbBootStrapImpl.java```](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/java/com/gdr/puretawny/dataLoader/impl/DbBootStrapImpl.java), which contains code to read and populate the database.
+* This file not only loads the 10,000 set of points but also creates polygons for the US so that later on we can test if a point is contained with in them.
 * 
 
 
