@@ -34,7 +34,6 @@
 		
 #### Data
 
-##### All Cities
 * Next challenge is to find geo spatial data that:
 	* Contains atleast 10,000 valid latitudes and longitudes.
 	* Be able to easily download the data so that we can import it.
