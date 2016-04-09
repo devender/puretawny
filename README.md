@@ -62,7 +62,7 @@ ad,andorre,Andorre,07,,42.5,1.5166667
 	* Maven.
 	* RethinkDB.
 	* Spring.
-* Please see main pom file for a complete list of dependencies.
+* Please see main [pom](https://github.com/devender/puretawny/blob/master/code/pom.xml) file for a complete list of dependencies.
 
 
 ## Data Loading
