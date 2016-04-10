@@ -1,10 +1,18 @@
 package com.gdr.puretawny.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Point {
 
+    @XmlElement
     private String country;
+    @XmlElement
     private String city;
+    @XmlElement
     private double latitude;
+    @XmlElement
     private double longitude;
     private int    id;
 
