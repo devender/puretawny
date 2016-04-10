@@ -67,6 +67,31 @@
 
 
 *  getAllDataSets() - GET method, returns all data in the DB
+
+```
+curl http://localhost:8080/point/all	
+```
+
+Sample output
+```JSON
+[{
+	"country": "us",
+	"city": "bellamy",
+	"latitude": 32.4488889,
+	"longitude": -88.1336111,
+	"id": 0
+}, {
+	"country": "us",
+	"city": "gepp",
+	"latitude": 36.3877778,
+	"longitude": -92.1041667,
+	"id": 0
+}
+...
+...]
+```
+
+
 *  getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
 *  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
 *  Given the entry's coordinates, determine if those coordinates are within the United States.
