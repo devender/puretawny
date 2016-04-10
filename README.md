@@ -63,9 +63,20 @@
 * This file not only loads the 10,000 set of points but also creates polygons for the US so that later on we can test if a point is contained with in them.
 
 
-## Services
+## Results
 
 
-*. 
+*  getAllDataSets() - GET method, returns all data in the DB
+*  getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
+*  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
+*  Given the entry's coordinates, determine if those coordinates are within the United States.
+*  If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:
+*  For each of the above, tell us how far away the entry's coordinates are from each city.
+*  A spreadsheet with the above answers for the original 10,000 entries.
+*  Source code for the solution. 
+*  The mechanism by which you populated the 10,000 entries.
+*  WAR file that we can deploy to Tomcat to test functionality.
+*  DB schema.
+*  Seed data for the DB.
 
 
