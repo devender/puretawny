@@ -3,6 +3,7 @@ package com.gdr.puretawny.db.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.json.simple.JSONArray;
@@ -17,7 +18,6 @@ import com.gdr.puretawny.db.DbService;
 import com.gdr.puretawny.model.Point;
 import com.gdr.puretawny.model.Polygon;
 import com.rethinkdb.RethinkDB;
-import com.rethinkdb.gen.ast.Table;
 import com.rethinkdb.model.Arguments;
 import com.rethinkdb.model.OptArgs;
 import com.rethinkdb.net.Connection;
@@ -128,34 +128,12 @@ public class DbServiceImpl implements DbService {
     public List<Point> findAll() {
         List<Point> list = new ArrayList<>();
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<HashMap> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME).run(connection);
+            Cursor<Map> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME).run(connection);
 
-            for (HashMap doc : cursor) {
-                try {
-                    JSONObject j = (JSONObject) doc.get("location");
-                    JSONArray o = (JSONArray) j.get("coordinates");
-                    String country = (String) doc.get("country");
-                    String city = (String) doc.get("city");
-
-                    Double latitudeN = 0.0;
-                    Double logitudeN = 0.0;
-
-                    if (o.get(1) instanceof Long) {
-                        latitudeN = ((Long) o.get(1)).doubleValue();
-                    } else {
-                        latitudeN = (Double) o.get(1);
-                    }
-                    if (o.get(0) instanceof Long) {
-                        logitudeN = ((Long) o.get(0)).doubleValue();
-                    } else {
-                        logitudeN = (Double) o.get(0);
-                    }
-
-                    if (null != country && null != city && null != latitudeN && null != logitudeN) {
-                        list.add(new Point(country, city, latitudeN, logitudeN));
-                    }
-                } catch (Exception e) {
-                    LOGGER.error("unable to map doc to pojo " + doc, e);
+            for (Map doc : cursor) {
+                Optional<Point> o = extractPointFromJson(doc);
+                if (o.isPresent()) {
+                    list.add(o.get());
                 }
             }
         }
@@ -172,30 +150,50 @@ public class DbServiceImpl implements DbService {
         }
     }
 
+    private static final Optional<Point> extractPointFromJson(Map doc) {
+        Optional<Point> point = Optional.empty();
+
+        try {
+            JSONObject j = (JSONObject) doc.get("location");
+            JSONArray o = (JSONArray) j.get("coordinates");
+            String country = (String) doc.get("country");
+            String city = (String) doc.get("city");
+            Double latitudeN = 0.0;
+            Double logitudeN = 0.0;
+
+            if (o.get(1) instanceof Long) {
+                latitudeN = ((Long) o.get(1)).doubleValue();
+            } else {
+                latitudeN = (Double) o.get(1);
+            }
+            if (o.get(0) instanceof Long) {
+                logitudeN = ((Long) o.get(0)).doubleValue();
+            } else {
+                logitudeN = (Double) o.get(0);
+            }
+
+            if (null != country && null != city && null != latitudeN && null != logitudeN) {
+                point = Optional.of(new Point(country, city, latitudeN, logitudeN));
+            }
+        } catch (Exception e) {
+            LOGGER.error("unable to map doc to pojo", e);
+        }
+
+        return point;
+
+    }
+
     @Override
     public Optional<Point> findAt(double latitude, double longitude) {
         Optional<Point> point = Optional.empty();
 
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<HashMap> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
+            Cursor<Map> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
                     .filter(r.hashMap("location", r.point(longitude, latitude))).limit(1)
                     .run(connection);
 
-            for (HashMap doc : cursor) {
-                try {
-                    JSONObject j = (JSONObject) doc.get("location");
-                    JSONArray o = (JSONArray) j.get("coordinates");
-                    String country = (String) doc.get("country");
-                    String city = (String) doc.get("city");
-                    Double latitudeN = (Double) o.get(1);
-                    Double logitudeN = (Double) o.get(0);
-                    if (null != country && null != city && null != latitudeN && null != logitudeN) {
-                        point = Optional.of(new Point(country, city, latitudeN, logitudeN));
-                    }
-                } catch (Exception e) {
-                    LOGGER.error("unable to map doc to pojo", e);
-                }
-
+            for (Map doc : cursor) {
+                point = extractPointFromJson(doc);
             }
         }
         return point;
@@ -205,11 +203,42 @@ public class DbServiceImpl implements DbService {
     public boolean isPointInUs(final Point point) {
         boolean intersects = false;
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<HashMap> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
+            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
                     .intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
             intersects = o.hasNext();
         }
         return intersects;
+    }
+
+    @Override
+    public Map<String, Double> distanceFromPointsOfInterest(double latitude, double longitude) {
+        Map<String, Double> distancesToCities = new HashMap<>();
+        try (Connection connection = r.connection().hostname(host).port(port).connect()) {
+            // find all points of interest
+            Cursor<Map> o = r.db(DB_NAME).table(POI_TABLE_NAME).run(connection);
+
+            // for each point find distance from the given location
+            for (Map m : o) {
+                Optional<Point> cityPoint = extractPointFromJson(m);
+                if (cityPoint.isPresent()) {
+                    Object object = r
+                            .distance(
+                                    r.point(cityPoint.get().getLongitude(),
+                                            cityPoint.get().getLatitude()),
+                                    r.point(longitude, latitude))
+                            .optArg("unit", "mi").run(connection);
+
+                    Double d = 0.0;
+                    if (object instanceof Long) {
+                        d = ((Long) object).doubleValue();
+                    } else {
+                        d = (Double) object;
+                    }
+                    distancesToCities.put(cityPoint.get().getCity(), d);
+                }
+            }
+        }
+        return distancesToCities;
     }
 
 }

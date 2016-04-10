@@ -1,6 +1,7 @@
 package com.gdr.puretawny.db;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -14,6 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.gdr.puretawny.config.AppConfig;
 import com.gdr.puretawny.db.config.DBConfig;
 import com.gdr.puretawny.model.Point;
+
+import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.hasSize;
 
 /**
@@ -35,6 +38,7 @@ public class DbServiceIntegration {
     private static final Point abercrombie = new Point("us", "abercrombie", 32.8486111,
             -87.1650000);
     private static final Point la          = new Point("us", "la", 34.052235, -118.243683);
+    private static final Point reykjavik   = new Point("is", "reykjavik", 64.15, -21.95);
 
     @Test
     public void testDeleteAndInsert() {
@@ -64,5 +68,15 @@ public class DbServiceIntegration {
         List<Point> points = dbService.findAll();
         Assert.assertNotNull(points);
         Assert.assertThat(points, hasSize(10000));
+    }
+
+    @Test
+    public void testDistanceFromPointsOfInterest() {
+        Map<String, Double> map = dbService.distanceFromPointsOfInterest(reykjavik.getLatitude(),
+                reykjavik.getLongitude());
+        Assert.assertThat("reykjavik is 0.0 miles away", map.get("reykjavik").doubleValue(),
+                closeTo(0.0, 0.0));
+        Assert.assertThat("tokyo is 8216.323443128565 miles away", map.get("tokyo").doubleValue(),
+                closeTo(5480.77565881628, 0.0));
     }
 }

@@ -1,6 +1,7 @@
 package com.gdr.puretawny.db;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.gdr.puretawny.model.Point;
@@ -23,6 +24,8 @@ public interface DbService {
     boolean isPointInUs(Point point);
 
     List<Point> findAll();
-    
+
     void insertPointsOfInterest(List<Point> points);
+
+    Map<String, Double> distanceFromPointsOfInterest(double latitude, double longitude);
 }
