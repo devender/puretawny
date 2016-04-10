@@ -29,3 +29,4 @@ tm.out
 out/
 *.swp
 mem.h2.db
+puretawnyDB/
