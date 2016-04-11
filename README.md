@@ -327,6 +327,42 @@ curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
 
 *  **DB schema.**
 
+RethinkDB is a document database, for this project I created 1 database with 3 tables
+```Java
+    @Override
+    public void bootStrapDb() {
+        try {
+            // drops database if it exists and recreates it.
+            dbService.initDB();
+
+            // load 10,000 points
+            Path path = Paths.get(ClassLoader.getSystemResource(sampleCitiesFile).toURI());
+            LOGGER.info("Reading data from file {}", path.toString());
+            List<Point> points = fileLoader.loadFromFile(path);
+            LOGGER.info("Read {} points ", points.size());
+
+            dbService.insertPoints(points);
+
+            LOGGER.info("Reading US polygon data");
+            Path usPolygonsPath = Paths.get(ClassLoader.getSystemResource(usPolygonsFile).toURI());
+            List<Polygon> usPolygons = fileLoader.loadPolygons(usPolygonsPath);
+            LOGGER.info("Read {} polygons for US...inserting", usPolygons.size());
+            dbService.insertPolygonsForUs(usPolygons);
+
+            // finally create a seperate table for the 7 points of interest
+            Path path2 = Paths.get(ClassLoader.getSystemResource(pointsOfInterestFile).toURI());
+            LOGGER.info("Reading data from file {}", path.toString());
+            List<Point> points2 = fileLoader.loadFromFile(path2);
+            LOGGER.info("Read {} points ", points.size());
+            dbService.insertPointsOfInterest(points2);
+
+        } catch (IOException | ParseException | URISyntaxException e) {
+            LOGGER.error("Unable to read file", e);
+        }
+    }
+
+```
+
 *  **Seed data for the DB.**
 
 	* [Seed Data](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt)
