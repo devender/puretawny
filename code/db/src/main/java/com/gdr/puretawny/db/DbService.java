@@ -1,7 +1,6 @@
 package com.gdr.puretawny.db;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import com.gdr.puretawny.model.DistanceFromCity;
@@ -29,4 +28,5 @@ public interface DbService {
     void insertPointsOfInterest(List<Point> points);
 
     List<DistanceFromCity> distanceFromPointsOfInterest(double latitude, double longitude);
+    
 }

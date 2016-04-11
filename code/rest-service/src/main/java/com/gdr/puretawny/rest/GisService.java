@@ -67,5 +67,4 @@ public class GisService {
         List<DistanceFromCity> list = dbService.distanceFromPointsOfInterest(latitude, longitude);
         return new ResponseEntity(list, HttpStatus.OK);
     }
-
 }

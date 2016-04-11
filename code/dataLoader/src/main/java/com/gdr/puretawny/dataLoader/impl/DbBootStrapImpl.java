@@ -71,6 +71,5 @@ public class DbBootStrapImpl implements DBBootStrap {
         } catch (IOException | ParseException | URISyntaxException e) {
             LOGGER.error("Unable to read file", e);
         }
-
     }
 }
