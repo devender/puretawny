@@ -13,7 +13,7 @@ public interface DbService {
 
     void insertPoints(List<Point> points);
 
-    void insertPoint(Point point);
+    boolean insertPoint(Point point);
 
     void deletePoint(Point point);
 

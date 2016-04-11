@@ -115,13 +115,20 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public void insertPoint(final Point point) {
-        try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
-                    .insert(r.hashMap("country", point.getCountry()).with("city", point.getCity())
-                            .with("location", r.point(point.getLongitude(), point.getLatitude())))
-                    .run(connection);
+    public boolean insertPoint(final Point point) {
+        boolean added = false;
+        Optional<Point> o = findAt(point.getLatitude(), point.getLongitude());
+        if (!o.isPresent()) {
+            try (Connection connection = r.connection().hostname(host).port(port).connect()) {
+                r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
+                        .insert(r.hashMap("country", point.getCountry())
+                                .with("city", point.getCity()).with("location",
+                                        r.point(point.getLongitude(), point.getLatitude())))
+                        .run(connection);
+            }
+            added = true;
         }
+        return added;
     }
 
     @Override
