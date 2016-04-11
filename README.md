@@ -355,7 +355,7 @@ This has already been described.
 	* cd into the rest-service folder and run ```java -jar target/rest-service-1.0-SNAPSHOT.war```
 	* This is an executable war file so you need not deploy it into a container.
 
-*NOTE: You need to have rethinkDB running locally.*
+*NOTE: You need to have rethinkDB running locally only if you plan to run the war locally.*
 * To install RethinkDB follow these [instructions](http://rethinkdb.com/docs/install/).
 * You will also need to run the DBBootStrapIntegration.java one time to load the data.
 * ```mvn -Dtest=DBBootStrapIntegration test```
