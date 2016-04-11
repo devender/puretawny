@@ -52,7 +52,7 @@
 * The only requirement given was to use Java, apart from that the following are some of libraries used: 
 	* Maven.
 	* RethinkDB.
-	* Spring.
+	* SpringBoot.
 * Please see main [pom](https://github.com/devender/puretawny/blob/master/code/pom.xml) file for a complete list of dependencies.
 
 
