@@ -112,6 +112,7 @@ curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
 
 *  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
 
+###### When point does not exists
 ```
 curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.109327
 *   Trying ::1...
@@ -121,12 +122,29 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 > User-Agent: curl/7.43.0
 > Accept: */*
 > 
-< HTTP/1.1 202 Accepted
+< HTTP/1.1 201 Created
 < Server: Apache-Coyote/1.1
 < Content-Length: 0
-< Date: Mon, 11 Apr 2016 00:23:52 GMT
+< Date: Mon, 11 Apr 2016 01:23:35 GMT
+```
+###### When point already exists
+```
+curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.109327
+*   Trying ::1...
+* Connected to localhost (::1) port 8080 (#0)
+> POST /point/longitude/107.237894/latitude/34.109327 HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.43.0
+> Accept: */*
+> 
+< HTTP/1.1 412 Precondition Failed
+< Server: Apache-Coyote/1.1
+< Content-Length: 0
+< Date: Mon, 11 Apr 2016 01:23:37 GMT
+< 
 
 ```
+
 *  Given the entry's coordinates, determine if those coordinates are within the United States.
 *  If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:
 *  For each of the above, tell us how far away the entry's coordinates are from each city.
