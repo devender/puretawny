@@ -177,7 +177,7 @@ true
 *  **If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:**
 *  **For each of the above, tell us how far away the entry's coordinates are from each city.**
 
-For the above 2 we can use the info end point, for any give point it will return 
+For the above 2 we can use the info end point, for any give point it will return.
 	* If it is inside US.
 	* For each of the 7 points of interest 
 		* How far it is from the point of interest
