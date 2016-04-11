@@ -52,7 +52,7 @@
 * The only requirement given was to use Java, apart from that the following are some of libraries used: 
 	* Maven.
 	* RethinkDB.
-	* Spring.
+	* SpringBoot.
 * Please see main [pom](https://github.com/devender/puretawny/blob/master/code/pom.xml) file for a complete list of dependencies.
 
 
@@ -110,8 +110,23 @@ curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
 < Content-Length: 0
 ```
 
-
 *  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
+
+```
+curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.109327
+*   Trying ::1...
+* Connected to localhost (::1) port 8080 (#0)
+> POST /point/longitude/107.237894/latitude/34.109327 HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.43.0
+> Accept: */*
+> 
+< HTTP/1.1 202 Accepted
+< Server: Apache-Coyote/1.1
+< Content-Length: 0
+< Date: Mon, 11 Apr 2016 00:23:52 GMT
+
+```
 *  Given the entry's coordinates, determine if those coordinates are within the United States.
 *  If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:
 *  For each of the above, tell us how far away the entry's coordinates are from each city.
