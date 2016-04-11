@@ -63,6 +63,25 @@
 * This file not only loads the 10,000 set of points but also creates polygons for the US so that later on we can test if a point is contained with in them.
 
 
+## Check if a point is within US
+
+* I already uploaded the entire set of polygons that define the US.
+* Now to check if a particular point is contained within one of the above polygons I use the following code.
+
+```JAVA
+@Override
+    public boolean isPointInUs(final Point point) {
+        boolean intersects = false;
+        try (Connection connection = r.connection().hostname(host).port(port).connect()) {
+            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).
+                    g("poly"). //for each of the polygon check if the give point intersects
+                    intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
+            intersects = o.hasNext();
+        }
+        return intersects;
+    }
+```
+
 ## Results
 
 

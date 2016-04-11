@@ -222,8 +222,9 @@ public class DbServiceImpl implements DbService {
     public boolean isPointInUs(final Point point) {
         boolean intersects = false;
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly")
-                    .intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
+            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).
+                    g("poly"). //for each of the polygon check if the give point intersects
+                    intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
             intersects = o.hasNext();
         }
         return intersects;
