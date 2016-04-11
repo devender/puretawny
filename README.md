@@ -332,6 +332,14 @@ This has already been described.
 
 
 *  **WAR file that we can deploy to Tomcat to test functionality.**
+	* Clone this repo.
+	* cd into the code folder and run ```mvn clean install```
+	* cd into the rest-service folder and run ```java -jar target/rest-service-1.0-SNAPSHOT.war```
+	* This is an executable war file so you need not deploy it into a container.
+
+NOTE: You need to have rethinkDB running locally.
+To install RethinkDB follow these [instructions](http://rethinkdb.com/docs/install/).
+You will also need to run the DBBootStrapIntegration.java one time to load the data.
 
 *  **DB schema.**
 
