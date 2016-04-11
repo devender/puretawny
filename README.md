@@ -317,9 +317,21 @@ curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
 ```		
 *  **A spreadsheet with the above answers for the original 10,000 entries.**
 *  **Source code for the solution.**
+
+Entire source code is [here](https://github.com/devender/puretawny/tree/master/code)
+
 *  **The mechanism by which you populated the 10,000 entries.**
+
+
 *  **WAR file that we can deploy to Tomcat to test functionality.**
+
 *  **DB schema.**
+
 *  **Seed data for the DB.**
+
+[Seed Data](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt)
+[US Polygons](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/us.geojson)
+[Preferred points of interest](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/pointsOfInterest.txt)
+
 
 
