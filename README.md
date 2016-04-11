@@ -1,3 +1,5 @@
+# *Please Note: This service is running at http://52.90.172.60:8080/point/all , so you don't have to set this up locally.*
+
 ## Requirements
 
 1. Create a DB containing 10,000 random entries for valid latitude, longitude coordinates. 
@@ -87,6 +89,8 @@ The complete source code of this class is available [here](https://github.com/de
 
 ```
 curl http://localhost:8080/point/all	
+or
+curl http://52.90.172.60:8080/point/all
 ```
 
 Sample output
@@ -113,6 +117,8 @@ Sample output
 ###### When point exists
 ```
 curl http://localhost:8080/point/longitude/-88.1336111/latitude/32.4488889
+or
+curl http://52.90.172.60:8080/point/longitude/-88.1336111/latitude/32.4488889
 ```
 Response
 ```JSON
@@ -121,6 +127,8 @@ Response
 ###### When point does not exists
 ```
 curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
+or
+curl -v http://52.90.172.60:8080/point/longitude/-88.1336111/latitude/22.2
 
 < HTTP/1.1 404 Not Found
 < Server: Apache-Coyote/1.1
@@ -132,6 +140,8 @@ curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
 ###### When point does not exists
 ```
 curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.109327
+or
+curl -v -X POST  http://52.90.172.60:8080/point/longitude/107.237894/latitude/34.109327
 *   Trying ::1...
 * Connected to localhost (::1) port 8080 (#0)
 > POST /point/longitude/107.237894/latitude/34.109327 HTTP/1.1
@@ -147,6 +157,8 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 ###### When point already exists
 ```
 curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.109327
+or
+curl -v -X POST  http://52.90.172.60:8080/point/longitude/107.237894/latitude/34.109327
 *   Trying ::1...
 * Connected to localhost (::1) port 8080 (#0)
 > POST /point/longitude/107.237894/latitude/34.109327 HTTP/1.1
@@ -165,12 +177,16 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 ###### Check if Moscow is inside US (Moscow lat 55.752222, long 37.615556)
 ```
 curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/insideUS
+or
+curl http://52.90.172.60:8080/point/longitude/37.615556/latitude/55.752222/insideUS
 false
 ```
 
 ###### Check if Los Angeles is inside US (Moscow lat 34.0522222, long -118.2427778)
 ```
 curl http://localhost:8080/point/longitude/-118.2427778/latitude/34.0522222/insideUS
+or
+curl http://52.90.172.60:8080/point/longitude/-118.2427778/latitude/34.0522222/insideUS
 true
 ```
 
@@ -184,6 +200,8 @@ For the above 2 we can use the info end point, for any give point it will return
 		* Is it within 500 miles of the point of interest.
 ```
 curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
+or
+curl http://localhost:52.90.172.60:8080/point/longitude/37.615556/latitude/55.752222/info
 ```		
 
 ```JSON
