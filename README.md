@@ -78,6 +78,8 @@
     }
 ```
 
+The complete source code of this class is available [here](https://github.com/devender/puretawny/blob/master/code/db/src/main/java/com/gdr/puretawny/db/impl/DbServiceImpl.java).
+
 ## Results
 
 
@@ -164,7 +166,7 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 *  **If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:**
 *  **For each of the above, tell us how far away the entry's coordinates are from each city.**
 *  **A spreadsheet with the above answers for the original 10,000 entries.**
-*  **Source code for the solution. **
+*  **Source code for the solution.**
 *  **The mechanism by which you populated the 10,000 entries.**
 *  **WAR file that we can deploy to Tomcat to test functionality.**
 *  **DB schema.**
