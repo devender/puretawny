@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.gdr.puretawny.db.DbService;
+import com.gdr.puretawny.model.DistanceFromCity;
 import com.gdr.puretawny.model.Point;
 import com.gdr.puretawny.model.Polygon;
 import com.rethinkdb.RethinkDB;
@@ -222,8 +223,17 @@ public class DbServiceImpl implements DbService {
     public boolean isPointInUs(final Point point) {
         boolean intersects = false;
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
-            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).
-                    g("poly"). //for each of the polygon check if the give point intersects
+            Cursor<Map> o = r.db(DB_NAME).table(US_POLYGONS_TABLE_NAME).g("poly"). // for
+                                                                                   // each
+                                                                                   // of
+                                                                                   // the
+                                                                                   // polygon
+                                                                                   // check
+                                                                                   // if
+                                                                                   // the
+                                                                                   // give
+                                                                                   // point
+                                                                                   // intersects
                     intersects(r.point(point.getLongitude(), point.getLatitude())).run(connection);
             intersects = o.hasNext();
         }
@@ -231,8 +241,10 @@ public class DbServiceImpl implements DbService {
     }
 
     @Override
-    public Map<String, Double> distanceFromPointsOfInterest(double latitude, double longitude) {
-        Map<String, Double> distancesToCities = new HashMap<>();
+    public List<DistanceFromCity> distanceFromPointsOfInterest(final double latitude,
+            final double longitude) {
+        Point p = new Point(latitude, longitude);
+        List<DistanceFromCity> list = new ArrayList<>();
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
             // find all points of interest
             Cursor<Map> o = r.db(DB_NAME).table(POI_TABLE_NAME).run(connection);
@@ -254,11 +266,14 @@ public class DbServiceImpl implements DbService {
                     } else {
                         d = (Double) object;
                     }
-                    distancesToCities.put(cityPoint.get().getCity(), d);
+                    DistanceFromCity distanceFromCity = new DistanceFromCity();
+                    distanceFromCity.setDistanceInMiles(d);
+                    distanceFromCity.setCity(cityPoint.get());
+                    distanceFromCity.setFromPoint(p);
                 }
             }
         }
-        return distancesToCities;
+        return list;
     }
 
 }

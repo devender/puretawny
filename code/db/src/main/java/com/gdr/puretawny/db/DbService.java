@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.gdr.puretawny.model.DistanceFromCity;
 import com.gdr.puretawny.model.Point;
 import com.gdr.puretawny.model.Polygon;
 
@@ -27,5 +28,5 @@ public interface DbService {
 
     void insertPointsOfInterest(List<Point> points);
 
-    Map<String, Double> distanceFromPointsOfInterest(double latitude, double longitude);
+    List<DistanceFromCity> distanceFromPointsOfInterest(double latitude, double longitude);
 }

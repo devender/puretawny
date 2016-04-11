@@ -52,4 +52,12 @@ public class GisService {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
         }
     }
+    
+    @RequestMapping(path = "/point/longitude/{longitude:.+}/latitude/{latitude:.+}/insideUS")
+    public ResponseEntity insideUS(@PathVariable double longitude, @PathVariable double latitude) {
+        LOGGER.debug("insideUS longitude {}, latitude {} ", longitude, latitude);
+        boolean b = dbService.isPointInUs(new Point(latitude,longitude));
+        return new ResponseEntity(b,HttpStatus.OK);
+    }
+    
 }

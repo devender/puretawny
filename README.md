@@ -159,10 +159,22 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 < Content-Length: 0
 < Date: Mon, 11 Apr 2016 01:23:37 GMT
 < 
+```
+*  **Given the entry's coordinates, determine if those coordinates are within the United States.**
 
+###### Check if Moscow is inside US (Moscow lat 55.752222, long 37.615556)
+```
+curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/insideUS
+false
 ```
 
-*  **Given the entry's coordinates, determine if those coordinates are within the United States.**
+###### Check if Los Angeles is inside US (Moscow lat 34.0522222, long -118.2427778)
+```
+curl http://localhost:8080/point/longitude/-118.2427778/latitude/34.0522222/insideUS
+true
+```
+
+
 *  **If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:**
 *  **For each of the above, tell us how far away the entry's coordinates are from each city.**
 *  **A spreadsheet with the above answers for the original 10,000 entries.**

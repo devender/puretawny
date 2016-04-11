@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gdr.puretawny.config.AppConfig;
 import com.gdr.puretawny.db.config.DBConfig;
+import com.gdr.puretawny.model.DistanceFromCity;
 import com.gdr.puretawny.model.Point;
 
 import static org.hamcrest.Matchers.closeTo;
@@ -83,11 +84,18 @@ public class DbServiceIntegration {
 
     @Test
     public void testDistanceFromPointsOfInterest() {
-        Map<String, Double> map = dbService.distanceFromPointsOfInterest(reykjavik.getLatitude(),
-                reykjavik.getLongitude());
-        Assert.assertThat("reykjavik is 0.0 miles away", map.get("reykjavik").doubleValue(),
-                closeTo(0.0, 0.0));
-        Assert.assertThat("tokyo is 8216.323443128565 miles away", map.get("tokyo").doubleValue(),
-                closeTo(5480.77565881628, 0.0));
+        List<DistanceFromCity> list = dbService
+                .distanceFromPointsOfInterest(reykjavik.getLatitude(), reykjavik.getLongitude());
+
+        for (DistanceFromCity d : list) {
+            if (d.getCity().getCity().equals("reykjavik")) {
+                Assert.assertThat("reykjavik is 0.0 miles away", d.getDistanceInMiles(),
+                        closeTo(0.0, 0.0));
+            } else if (d.getCity().getCity().equals("tokyo")) {
+                Assert.assertThat("tokyo is 8216.323443128565 miles away", d.getDistanceInMiles(),
+                        closeTo(5480.77565881628, 0.0));
+            }
+        }
+
     }
 }
