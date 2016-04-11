@@ -93,7 +93,7 @@ Sample output
 
 *  getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
 
-#### When point exists
+###### When point exists
 ```
 curl http://localhost:8080/point/longitude/-88.1336111/latitude/32.4488889
 ```
@@ -101,16 +101,15 @@ Response
 ```JSON
 {"country":"us","city":"bellamy","latitude":32.4488889,"longitude":-88.1336111,"id":0}
 ```
-#### When point does not exists
+###### When point does not exists
 ```
 curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
-```
+
 < HTTP/1.1 404 Not Found
 < Server: Apache-Coyote/1.1
 < Content-Length: 0
 ```
 
-```
 
 *  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
 *  Given the entry's coordinates, determine if those coordinates are within the United States.
