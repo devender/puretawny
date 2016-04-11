@@ -316,6 +316,12 @@ curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
 }]
 ```		
 *  **A spreadsheet with the above answers for the original 10,000 entries.**
+
+	* The CSV file has the following format:
+		* Latitude, Longitude, Within US, POI City, Distance From POI City, Is Within 500 Miles of POI City.
+	* File is available here.
+	* Source code to produce the file is [here]().
+
 *  **Source code for the solution.**
 
 	* Entire source code is [here](https://github.com/devender/puretawny/tree/master/code)
