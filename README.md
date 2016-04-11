@@ -322,6 +322,8 @@ curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
 
 *  **The mechanism by which you populated the 10,000 entries.**
 
+This has already been described.
+
 
 *  **WAR file that we can deploy to Tomcat to test functionality.**
 
