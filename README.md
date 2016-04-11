@@ -329,9 +329,9 @@ Entire source code is [here](https://github.com/devender/puretawny/tree/master/c
 
 *  **Seed data for the DB.**
 
-* [Seed Data](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt)
-* [US Polygons](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/us.geojson)
-* [Preferred points of interest](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/pointsOfInterest.txt)
+	* [Seed Data](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/cities.txt)
+	* [US Polygons](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/us.geojson)
+	* [Preferred points of interest](https://github.com/devender/puretawny/blob/master/code/dataLoader/src/main/resources/pointsOfInterest.txt)
 
 
 
