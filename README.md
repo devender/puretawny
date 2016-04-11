@@ -318,7 +318,7 @@ curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
 *  **A spreadsheet with the above answers for the original 10,000 entries.**
 *  **Source code for the solution.**
 
-Entire source code is [here](https://github.com/devender/puretawny/tree/master/code)
+	* Entire source code is [here](https://github.com/devender/puretawny/tree/master/code)
 
 *  **The mechanism by which you populated the 10,000 entries.**
 
