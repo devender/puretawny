@@ -61,7 +61,7 @@
 
 ## Check if a point is within US
 
-* I already uploaded the entire set of polygons that define the US.
+* I already uploaded the entire set of polygons that define the US.(Described above.)
 * Now to check if a particular point is contained within one of the above polygons I use the following code.
 
 ```JAVA
@@ -81,7 +81,7 @@
 ## Results
 
 
-*  getAllDataSets() - GET method, returns all data in the DB
+*  **getAllDataSets() - GET method, returns all data in the DB**
 
 ```
 curl http://localhost:8080/point/all	
@@ -106,7 +106,7 @@ Sample output
 ...]
 ```
 
-*  getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
+*  **getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not**
 
 ###### When point exists
 ```
@@ -125,7 +125,7 @@ curl -v http://localhost:8080/point/longitude/-88.1336111/latitude/22.2
 < Content-Length: 0
 ```
 
-*  addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
+*  **addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist**
 
 ###### When point does not exists
 ```
@@ -160,14 +160,14 @@ curl -v -X POST  http://localhost:8080/point/longitude/107.237894/latitude/34.10
 
 ```
 
-*  Given the entry's coordinates, determine if those coordinates are within the United States.
-*  If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:
-*  For each of the above, tell us how far away the entry's coordinates are from each city.
-*  A spreadsheet with the above answers for the original 10,000 entries.
-*  Source code for the solution. 
-*  The mechanism by which you populated the 10,000 entries.
-*  WAR file that we can deploy to Tomcat to test functionality.
-*  DB schema.
-*  Seed data for the DB.
+*  **Given the entry's coordinates, determine if those coordinates are within the United States.**
+*  **If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:**
+*  **For each of the above, tell us how far away the entry's coordinates are from each city.**
+*  **A spreadsheet with the above answers for the original 10,000 entries.**
+*  **Source code for the solution. **
+*  **The mechanism by which you populated the 10,000 entries.**
+*  **WAR file that we can deploy to Tomcat to test functionality.**
+*  **DB schema.**
+*  **Seed data for the DB.**
 
 
