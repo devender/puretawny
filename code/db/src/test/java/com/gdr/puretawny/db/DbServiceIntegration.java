@@ -41,6 +41,15 @@ public class DbServiceIntegration {
     private static final Point reykjavik   = new Point("is", "reykjavik", 64.15, -21.95);
 
     @Test
+    public void duplicate() {
+        dbService.deletePoint(new Point(null, null, -20.20, 27.20));
+        boolean b = dbService.insertPoint(new Point(null, null, -20.20, 27.20));
+        Assert.assertTrue(b);
+        b = dbService.insertPoint(new Point(null, null, -20.20, 27.20));
+        Assert.assertFalse(b);
+    }
+
+    @Test
     public void testDeleteAndInsert() {
         dbService.deletePoint(zuzumba);
         dbService.deletePoint(zvishavane);
@@ -50,6 +59,8 @@ public class DbServiceIntegration {
                 zuzumba.getLongitude());
 
         Assert.assertTrue(actualZuzumba.isPresent());
+        System.out.println(actualZuzumba.get());
+        System.out.println(zuzumba);
         Assert.assertTrue(actualZuzumba.get().equals(zuzumba));
         dbService.deletePoint(zuzumba);
         dbService.deletePoint(zvishavane);
@@ -67,7 +78,7 @@ public class DbServiceIntegration {
     public void loadAll() {
         List<Point> points = dbService.findAll();
         Assert.assertNotNull(points);
-        Assert.assertThat(points, hasSize(10000));
+        Assert.assertThat(points, hasSize(10001));
     }
 
     @Test

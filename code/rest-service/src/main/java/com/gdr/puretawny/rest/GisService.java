@@ -44,6 +44,7 @@ public class GisService {
 
     @RequestMapping(method = RequestMethod.POST, path = "/point/longitude/{longitude:.+}/latitude/{latitude:.+}")
     public ResponseEntity add(@PathVariable double longitude, @PathVariable double latitude) {
+        LOGGER.debug("adding longitude {}, latitude {} ", longitude, latitude);
         boolean b = dbService.insertPoint(new Point(latitude, longitude));
         if (b) {
             return new ResponseEntity(HttpStatus.CREATED);

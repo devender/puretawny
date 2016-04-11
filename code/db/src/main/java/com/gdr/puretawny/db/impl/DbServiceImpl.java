@@ -117,7 +117,11 @@ public class DbServiceImpl implements DbService {
     @Override
     public boolean insertPoint(final Point point) {
         boolean added = false;
+
         Optional<Point> o = findAt(point.getLatitude(), point.getLongitude());
+
+        LOGGER.info("Point already exists {} ", o.isPresent());
+
         if (!o.isPresent()) {
             try (Connection connection = r.connection().hostname(host).port(port).connect()) {
                 r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
@@ -128,6 +132,7 @@ public class DbServiceImpl implements DbService {
             }
             added = true;
         }
+
         return added;
     }
 
@@ -163,8 +168,15 @@ public class DbServiceImpl implements DbService {
         try {
             JSONObject j = (JSONObject) doc.get("location");
             JSONArray o = (JSONArray) j.get("coordinates");
-            String country = (String) doc.get("country");
-            String city = (String) doc.get("city");
+            String country = null;
+            if (null != doc.get("country")) {
+                country = (String) doc.get("country");
+            }
+            String city = null;
+            if (null != doc.get("city")) {
+                city = (String) doc.get("city");
+            }
+
             Double latitudeN = 0.0;
             Double logitudeN = 0.0;
 
@@ -179,7 +191,7 @@ public class DbServiceImpl implements DbService {
                 logitudeN = (Double) o.get(0);
             }
 
-            if (null != country && null != city && null != latitudeN && null != logitudeN) {
+            if (null != latitudeN && null != logitudeN) {
                 point = Optional.of(new Point(country, city, latitudeN, logitudeN));
             }
         } catch (Exception e) {
@@ -193,7 +205,7 @@ public class DbServiceImpl implements DbService {
     @Override
     public Optional<Point> findAt(double latitude, double longitude) {
         Optional<Point> point = Optional.empty();
-
+        LOGGER.info("check if point exists {} {} ", longitude, latitude);
         try (Connection connection = r.connection().hostname(host).port(port).connect()) {
             Cursor<Map> cursor = r.db(DB_NAME).table(SAMPLE_POINTS_TABLE_NAME)
                     .filter(r.hashMap("location", r.point(longitude, latitude))).limit(1)
