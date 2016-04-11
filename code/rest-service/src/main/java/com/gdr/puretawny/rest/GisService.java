@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gdr.puretawny.db.DbService;
@@ -39,5 +40,11 @@ public class GisService {
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/point/longitude/{longitude:.+}/latitude/{latitude:.+}")
+    public ResponseEntity add(@PathVariable double longitude, @PathVariable double latitude) {
+        dbService.insertPoint(new Point(latitude, longitude));
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }
