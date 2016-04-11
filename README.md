@@ -1,10 +1,6 @@
 ## Requirements
 
-#### Database
 1. Create a DB containing 10,000 random entries for valid latitude, longitude coordinates. 
-
-#### Web Services
-
 1. getAllDataSets() - GET method, returns all data in the DB.
 1. getData(latitude, longitude) - GET method, returns if the coordinates exist in the DB or not
 1. addData(latitude, longitude) - POST method, adds the coordinate to the DB if it doesn't exist
