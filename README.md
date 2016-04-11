@@ -174,9 +174,147 @@ curl http://localhost:8080/point/longitude/-118.2427778/latitude/34.0522222/insi
 true
 ```
 
-
 *  **If they're not within the United States, determine if the coordinates are within 500 miles of the following cities:**
 *  **For each of the above, tell us how far away the entry's coordinates are from each city.**
+
+For the above 2 we can use the info end point, for any give point it will return 
+	* If it is inside US.
+	* For each of the 7 points of interest 
+		* How far it is from the point of interest
+		* Is it within 500 miles of the point of interest.
+```
+curl http://localhost:8080/point/longitude/37.615556/latitude/55.752222/info
+```		
+
+```JSON
+[{
+	"distanceInMiles": 2062.722566480321,
+	"city": {
+		"country": "is",
+		"city": "reykjavik",
+		"latitude": 64.15,
+		"longitude": -21.95,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 8999.550337831148,
+	"city": {
+		"country": "au",
+		"city": "sydney",
+		"latitude": -33.861481,
+		"longitude": 151.205475,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 7855.166040433584,
+	"city": {
+		"country": "pe",
+		"city": "lima",
+		"latitude": -12.046374,
+		"longitude": -77.042793,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 1366.7494919536348,
+	"city": {
+		"country": "ch",
+		"city": "zurich",
+		"latitude": 47.366667,
+		"longitude": 8.55,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 2194.9134760126453,
+	"city": {
+		"country": "sa",
+		"city": "riyadh",
+		"latitude": 24.653664,
+		"longitude": 46.71522,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 6671.45687521232,
+	"city": {
+		"country": "mx",
+		"city": "mexico city",
+		"latitude": 19.432608,
+		"longitude": -99.133209,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}, {
+	"distanceInMiles": 4660.735348176216,
+	"city": {
+		"country": "jp",
+		"city": "tokyo",
+		"latitude": 35.685,
+		"longitude": 139.751389,
+		"id": 0
+	},
+	"fromPoint": {
+		"country": null,
+		"city": null,
+		"latitude": 55.752222,
+		"longitude": 37.615556,
+		"id": 0
+	},
+	"inUS": false,
+	"within500MilesOfCity": false
+}]
+```		
 *  **A spreadsheet with the above answers for the original 10,000 entries.**
 *  **Source code for the solution.**
 *  **The mechanism by which you populated the 10,000 entries.**

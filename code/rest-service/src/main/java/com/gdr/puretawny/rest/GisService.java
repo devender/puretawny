@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gdr.puretawny.db.DbService;
+import com.gdr.puretawny.model.DistanceFromCity;
 import com.gdr.puretawny.model.Point;
 
 @RestController
@@ -52,12 +53,19 @@ public class GisService {
             return new ResponseEntity(HttpStatus.PRECONDITION_FAILED);
         }
     }
-    
+
     @RequestMapping(path = "/point/longitude/{longitude:.+}/latitude/{latitude:.+}/insideUS")
     public ResponseEntity insideUS(@PathVariable double longitude, @PathVariable double latitude) {
         LOGGER.debug("insideUS longitude {}, latitude {} ", longitude, latitude);
-        boolean b = dbService.isPointInUs(new Point(latitude,longitude));
-        return new ResponseEntity(b,HttpStatus.OK);
+        boolean b = dbService.isPointInUs(new Point(latitude, longitude));
+        return new ResponseEntity(b, HttpStatus.OK);
     }
-    
+
+    @RequestMapping(path = "/point/longitude/{longitude:.+}/latitude/{latitude:.+}/info")
+    public ResponseEntity info(@PathVariable double longitude, @PathVariable double latitude) {
+        LOGGER.debug("insideUS longitude {}, latitude {} ", longitude, latitude);
+        List<DistanceFromCity> list = dbService.distanceFromPointsOfInterest(latitude, longitude);
+        return new ResponseEntity(list, HttpStatus.OK);
+    }
+
 }

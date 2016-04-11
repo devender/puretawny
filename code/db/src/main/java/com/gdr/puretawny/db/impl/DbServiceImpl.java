@@ -270,6 +270,8 @@ public class DbServiceImpl implements DbService {
                     distanceFromCity.setDistanceInMiles(d);
                     distanceFromCity.setCity(cityPoint.get());
                     distanceFromCity.setFromPoint(p);
+                    distanceFromCity.setInUS(isPointInUs(p));
+                    list.add(distanceFromCity);
                 }
             }
         }
