@@ -1,5 +1,3 @@
-# *Please Note: This service is running at http://52.90.172.60:8080/point/all , so you don't have to set this up locally.*
-
 ## Requirements
 
 1. Create a DB containing 10,000 random entries for valid latitude, longitude coordinates. 
